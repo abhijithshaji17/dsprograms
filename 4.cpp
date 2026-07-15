@@ -33,5 +33,6 @@ int main(){
             cout<<a[i]<<" ";
     }
     cout<<"]"<<"\n";
+    cout<<"Sum of array elements = "<<sum;
     return 0;
 }
