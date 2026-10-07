@@ -3,6 +3,7 @@
 #include <stack>                            //for LIFO approach
 #include <cctype>                           //to use utility functions like isalnum() to test alphanumeric char
 #include <algorithm>                        //to use reverse func
+#include <cmath>                            //for pow() function
 
 using namespace std;
 
@@ -22,6 +23,18 @@ int precedence(char op) {                   //helper function to return priority
         return 3;
     }
     return -1;
+}
+
+// helper function to perform basic math operations
+double applyOp(double a, double b, char op) {
+    switch (op) {
+    case '+': return a + b;
+    case '-': return a - b;
+    case '*': return a * b;
+    case '/': return a / b;
+    case '^': return pow(a, b);
+    }
+    return 0;
 }
 
 string infixToPostfix(const string &infix) {                //accepts an infix string and returns its postfix
@@ -127,16 +140,52 @@ string infixToPrefix(const string &infix) {
     return prefix;
 }
 
+// evaluate postfix by scanning left to right
+double evaluatePostfix(const string &postfix) {
+    stack<double> st;                                       // stack to store numerical operands during evaluation
+
+    for (char c : postfix) {                                // scan postfix string from left to right
+        if (isdigit(c)) {
+            st.push(c - '0');                               // convert char digit to integer and push to stack
+        } else if (isOperator(c)) {
+            double op2 = st.top(); st.pop();                // pop second operand
+            double op1 = st.top(); st.pop();                // pop first operand
+            st.push(applyOp(op1, op2, c));                  // evaluate op1 operator op2 and push result
+        }
+    }
+    return st.top();
+}
+
+// evaluate prefix by scanning right to left
+double evaluatePrefix(const string &prefix) {
+    stack<double> st;                                       // stack to store numerical operands during evaluation
+
+    for (int i = prefix.length() - 1; i >= 0; i--) {        // scan prefix string from right to left
+        char c = prefix[i];
+        if (isdigit(c)) {
+            st.push(c - '0');                               // convert char digit to integer and push to stack
+        } else if (isOperator(c)) {
+            double op1 = st.top(); st.pop();                // pop first operand
+            double op2 = st.top(); st.pop();                // pop second operand
+            st.push(applyOp(op1, op2, c));                  // evaluate op1 operator op2 and push result
+        }
+    }
+    return st.top();
+}
+
 int main() {
     string infix;
     cout << "Enter the infix expression: ";
-    getline(cin, infix);                            //getline to read entire line of expression including spaces
+    getline(cin, infix);                                    //getline to read entire line of expression including spaces
 
     string postfix = infixToPostfix(infix);
     string prefix = infixToPrefix(infix);
 
     cout << "Postfix expression: " << postfix << endl;
     cout << "Prefix expression: " << prefix << endl;
+
+    cout << "Postfix Evaluation result: " << evaluatePostfix(postfix) << endl;
+    cout << "Prefix Evaluation result: " << evaluatePrefix(prefix) << endl;
 
     return 0;
 }
