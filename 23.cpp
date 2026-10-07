@@ -79,7 +79,7 @@ string infixToPrefix(const string &infix) {
     string reversedInfix = "";
     
     //Reverse string and swap parentheses
-    for (int i = infix.length() - 1; i >= 0; i--) {
+    for (int i = infix.length() - 1; i >= 0; i--) {            // i is the number of characters in string
         if (infix[i] == '(') {
             reversedInfix += ')';
         } else if (infix[i] == ')') {
@@ -189,3 +189,6 @@ int main() {
 
     return 0;
 }
+
+// Works only with single digits or chars
+// Both Postfix and Prefix expressions compute the same numerical result but their string representations and traversal orders are different.
