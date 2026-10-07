@@ -45,7 +45,7 @@ string infixToPostfix(const string &infix) {                //accepts an infix s
         if (isalnum(c)) {                                   //check whether char c is an operand                          
             postfix += c;                                   //operands pass to output string without entering stack
         } 
-        else if (c == '(') {                                //to check openining parenthesis encountered or not
+        else if (c == '(') {                                //to check opening parenthesis encountered or not
             opStack.push(c);                                //yes, then push to opStack(The temporary Operator stack to hold operators such as '+', '-')
         } 
         else if (c == ')') {                                //triggered when closing parenthesis reached
