@@ -26,7 +26,7 @@ int precedence(char op) {                   //helper function to return priority
 
 string infixToPostfix(const string &infix) {                //accepts an infix string and returns its postfix
     string postfix = "";
-    stack<char> opStack;                                    //char stack to temporarily hold operator and parenthesis
+    stack<char> opStack;                                    //char type operator stack to temporarily hold operator and parenthesis
 
     for (char c : infix) {                                  //for loop to process input expression char by char from left to right
         if (isalnum(c)) {                                   //check whether char c is an operand                          
