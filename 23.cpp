@@ -130,7 +130,7 @@ string infixToPrefix(const string &infix) {
 int main() {
     string infix;
     cout << "Enter the infix expression: ";
-    getline(cin, infix);
+    getline(cin, infix);                            //getline to read entire line of expression including spaces
 
     string postfix = infixToPostfix(infix);
     string prefix = infixToPrefix(infix);
